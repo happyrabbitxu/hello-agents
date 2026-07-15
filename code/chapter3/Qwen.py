@@ -22,8 +22,8 @@ print("模型和分词器加载完成！")
 
 # 准备对话输入
 messages = [
-    {"role": "system", "content": "You are a helpful assistant."},
-    {"role": "user", "content": "你好，请介绍你自己。"}
+    {"role": "system", "content": "You are a professional python coder."},
+    {"role": "user", "content": "请使用python写一个石头剪刀布人机对战游戏。首先使用tkinter库允许用户选择出石头剪刀还是布，创建三个按钮使用户选择，接着调用radom库，使计算机随机选一个，接着比较二者结果：石头克剪子，剪子克布，布克石头，用中文给代码写好注释，不要出现变量未定义等低级错误"}
 ]
 
 # 使用分词器的模板格式化输入
