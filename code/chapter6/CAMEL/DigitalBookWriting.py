@@ -13,10 +13,10 @@ LLM_MODEL = os.getenv("LLM_MODEL")
 
 #创建模型,在这里以Qwen为例,调用的百炼大模型平台API
 model = ModelFactory.create(
-    model_platform=ModelPlatformType.QWEN,
-    model_type=LLM_MODEL,
-    url=LLM_BASE_URL,
-    api_key=LLM_API_KEY
+    model_platform=ModelPlatformType.OPENAI_COMPATIBLE_MODEL,
+    model_type=os.getenv("LLM_MODEL_ID"),
+    url=os.getenv("LLM_BASE_URL"),
+    api_key=os.getenv("LLM_API_KEY")
 )
 
 # 定义协作任务

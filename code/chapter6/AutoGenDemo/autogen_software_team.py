@@ -10,20 +10,41 @@ from dotenv import load_dotenv
 # 加载环境变量
 load_dotenv()
 
-# 先测试一个版本，使用 OpenAI 客户端
+# 先测试一个版本，使用 OpenAI 客户端（已经改动使用任意的客户端）
 from autogen_ext.models.openai import OpenAIChatCompletionClient
+model_client = OpenAIChatCompletionClient(
+    model=os.getenv("LLM_MODEL_ID"),
+    api_key=os.getenv("LLM_API_KEY"),
+    base_url=os.getenv("LLM_BASE_URL"),
+    model_info={
+        "function_calling": True,
+        "max_tokens": 4096,
+        "context_length": 32768,
+        "vision": False,
+        "json_output": True,
+        "family": "glm",   #这里需要自己改一下
+        "structured_output": True,
+    })
 from autogen_agentchat.agents import AssistantAgent, UserProxyAgent
 from autogen_agentchat.teams import RoundRobinGroupChat
 from autogen_agentchat.conditions import TextMentionTermination
 from autogen_agentchat.ui import Console
 
 def create_openai_model_client():
-    """创建 OpenAI 模型客户端用于测试"""
+    """创建 OpenAI 模型客户端用于测试(已经改动，使用任意的客户端)"""
     return OpenAIChatCompletionClient(
-        model=os.getenv("LLM_MODEL_ID", "gpt-4o"),
+        model=os.getenv("LLM_MODEL_ID"),
         api_key=os.getenv("LLM_API_KEY"),
-        base_url=os.getenv("LLM_BASE_URL", "https://api.openai.com/v1")
-    )
+        base_url=os.getenv("LLM_BASE_URL"),
+        model_info={
+        "function_calling": True,
+        "max_tokens": 4096,
+        "context_length": 32768,
+        "vision": False,
+        "json_output": True,
+        "family": "glm",  #这里需要自己改一下
+        "structured_output": True,
+    })
 
 def create_product_manager(model_client):
     """创建产品经理智能体"""
@@ -141,7 +162,7 @@ async def run_software_development_team():
             user_proxy
         ],
         termination_condition=termination,
-        max_turns=20,  # 增加最大轮次
+        max_turns=50 # 增加最大轮次
     )
     
     # 定义开发任务
